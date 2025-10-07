@@ -35,16 +35,16 @@ public class LoginTest {
             );
             loginButton.click();
             //driver.findElement(By.id("login2")).click();
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("loginusername"))).sendKeys("suyognim");
-            driver.findElement(By.id("loginusername")).sendKeys("suyognim");
-            driver.findElement(By.id("loginpassword")).sendKeys("mypass123");
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("loginusername"))).sendKeys("niqqauser");
+            //driver.findElement(By.id("loginusername")).sendKeys("niqqauser");
+            driver.findElement(By.id("loginpassword")).sendKeys("pass123");
             driver.findElement(By.cssSelector("#logInModal > div > div > div.modal-footer > button.btn.btn-primary")).click();
 
             // Wait for the user welcome text
             WebElement welcomeText = wait.until(
                     ExpectedConditions.visibilityOfElementLocated(By.id("nameofuser"))
             );
-            Assert.assertEquals(welcomeText.getText(), "Welcome suyognim", "Login succesfull");
+            Assert.assertEquals(welcomeText.getText(), "Welcome niqqauser", "Login succesfull");
             System.out.println();
         } catch (Exception e) {
             Assert.fail("Login test failed: " + e.getMessage());
