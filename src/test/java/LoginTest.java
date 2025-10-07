@@ -4,7 +4,11 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import io.github.bonigarcia.*;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+
+import java.time.Duration;
 
 public class LoginTest {
 
@@ -21,23 +25,34 @@ public class LoginTest {
 
         WebDriver driver = new ChromeDriver();
 
-        driver.get("https://www.demoblaze.com/");
-        driver.findElement(By.id("login2")).click();
-        Thread.sleep(3000);
-        driver.findElement(By.id("loginusername")).sendKeys("suyognim");
-        driver.findElement(By.id("loginpassword")).sendKeys("mypass123");
-        driver.findElement(By.cssSelector("#logInModal > div > div > div.modal-footer > button.btn.btn-primary")).click();
-        Thread.sleep(3000);
-
-
         try {
-            Assert.assertEquals("Welcome suyognim", driver.findElement(By.id("nameofuser")).getText(), "Login succesfull");
+            driver.get("https://www.demoblaze.com/");
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+            // Wait for the login button and click
+            WebElement loginButton = wait.until(
+                    ExpectedConditions.visibilityOfElementLocated(By.id("login2"))
+            );
+            loginButton.click();
+            //driver.findElement(By.id("login2")).click();
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("loginusername"))).sendKeys("suyognim");
+            driver.findElement(By.id("loginusername")).sendKeys("suyognim");
+            driver.findElement(By.id("loginpassword")).sendKeys("mypass123");
+            driver.findElement(By.cssSelector("#logInModal > div > div > div.modal-footer > button.btn.btn-primary")).click();
+
+            // Wait for the user welcome text
+            WebElement welcomeText = wait.until(
+                    ExpectedConditions.visibilityOfElementLocated(By.id("nameofuser"))
+            );
+            Assert.assertEquals(welcomeText.getText(), "Welcome suyognim", "Login succesfull");
+            System.out.println();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            Assert.fail("Login test failed: " + e.getMessage());
+        } finally {
+            driver.quit();
+
+
         }
 
-
-
     }
-
 }
