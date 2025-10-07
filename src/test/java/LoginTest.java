@@ -38,7 +38,7 @@ public class LoginTest {
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("loginusername"))).sendKeys("niqqauser");
             //driver.findElement(By.id("loginusername")).sendKeys("niqqauser");
             driver.findElement(By.id("loginpassword")).sendKeys("pass123");
-            driver.findElement(By.cssSelector("#logInModal > div > div > div.modal-footer > button.btn.btn-primary")).click();
+            driver.findElement(By.cssSelector("#logInModal .btn-primary")).click();
 
             // Wait for the user welcome text
             WebElement welcomeText = wait.until(
