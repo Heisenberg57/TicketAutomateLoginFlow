@@ -45,3 +45,8 @@ What locator strategy did you use (id, css, xpath)? id, css
 Why login is a good first candidate for UI automation? its critical and gives access to other module
 
 If the login test fails, what is the business impact? no purchase resulting in no business
+
+
+## Use of waits
+
+I used explicit wait in the code to wait for the elements which are not present on the page to load
